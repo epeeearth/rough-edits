@@ -20,7 +20,7 @@
 #       - Joshua Vaughan
 #       - 
 #       - http://www.ucs.louisiana.edu/~jev9637
-#Try Except Code created: 10/26/17Joshua Vaughanjoshua.vaughan@louisiana.edu
+#Try Except Code created: 10/26/17Joshua Vaughan
 """Created: 10/30/17 - Kelli K"
 # Modified:
 #   * 10/31/17 - Kelli K (email if not same person as above)
