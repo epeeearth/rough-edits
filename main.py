@@ -6,17 +6,17 @@
 # Optional Link to relevant documentation
 # https://github.com/DocVaughan/MCHE201---Intro-to-Eng-Design
 #
-# Created: 10/30/17 - Kelli Koenig - C00402839@louisiana.edu
+# Created: 10/30/17 - 
 #
 # Modified:
-#   * 10/31/17 - Kelli Koenig (email if not same person as above)
+#   * 10/31/17 - Kelli K(email if not same person as above)
 #     - fixed spacing issues in some places
 #     - added while loop
 #     - added blue LED
 #     - took out  linear Actuator
 #     - worked on getting start button to worke
 #
-#   * 11/01/17 - Kelli Koenig (email if not same person as above)
+#   * 11/01/17 - Kelli K(email if not same person as above)
 #     - defined Motors
 #     - changed time of motors running
 #
