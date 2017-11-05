@@ -22,8 +22,8 @@
 #  
 #
 #   Servomotor code Created: 10/06/17
-#       - Joshua Vaughan
-#       - joshua.vaughan@louisiana.edu
+#       - Joshua V
+#       - 
 #       - http://www.ucs.louisiana.edu/~jev9637
 #   Try Except Code created: 10/26/17 -
 #
