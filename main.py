@@ -19,29 +19,29 @@
 #
 #
 #   DC MOtor Code:
-#   Created: 10/20/17 - Joshua Vaughan - joshua.vaughan@louisiana.edu
+#  
 #
 #   Servomotor code Created: 10/06/17
 #       - Joshua Vaughan
 #       - joshua.vaughan@louisiana.edu
 #       - http://www.ucs.louisiana.edu/~jev9637
-#   Try Except Code created: 10/26/17 - Joshua Vaughan - joshua.vaughan@louisiana.edu
+#   Try Except Code created: 10/26/17 -
 #
-# Created: 10/30/17 - Kelli Koenig - C00402839@louisiana.edu
+# Created: 10/30/17 - 
 #
 # Modified:
-#   * 10/31/17 - Kelli Koenig (email if not same person as above)
+#   * 10/31/17 -  (email if not same person as above)
 #     - fixed spacing issues in some places
 #     - added while loop
 #     - added blue LED
 #     - took out  linear Actuator
 #     - worked on getting start button to worke
 #
-#   * 11/01/17 - Kelli Koenig (email if not same person as above)
+#   * 11/01/17 - Kelli K (email if not same person as above)
 #     - defined Motors
 #     - changed time of motors running
 #
-#   * 11/04/17 - Kelli Koenig (email if not same person as above)
+#   * 11/04/17 - Kelli K (email if not same person as above)
 #     - added code for servo motors
 #     - added sleep mode for 30 seconds in while loop
 #     - added additional comments to give credit for souce code
