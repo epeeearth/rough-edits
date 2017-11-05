@@ -3,8 +3,29 @@
 #
 # Some description of functionality
 #
-# Optional Link to relevant documentation
-# https://github.com/DocVaughan/MCHE201---Intro-to-Eng-Design
+# Links to relevant documentation:
+#   https://github.com/DocVaughan/MCHE201---Intro-to-Eng-Design
+#    DC Motor Code adapted from:
+#     http://docs.micropython.org/en/latest/pyboard/pyboard/tutorial/servo.html
+#
+#    DC MOtor code requires the .mpy files from the repository linked below to be
+#    on the pyboard.
+#     https://github.com/adafruit/micropython-adafruit-pca9685
+#
+#    For more information see:
+#     https://learn.adafruit.com/micropython-hardware-pca9685-dc-motor-and-stepper-driver
+#     The circuit on the shield is identical to the Feather board shown in that
+#     tutorial.
+#
+#
+#   DC MOtor Code:
+#   Created: 10/20/17 - Joshua Vaughan - joshua.vaughan@louisiana.edu
+#
+#   Servomotor code Created: 10/06/17
+#       - Joshua Vaughan
+#       - joshua.vaughan@louisiana.edu
+#       - http://www.ucs.louisiana.edu/~jev9637
+#   Try Except Code created: 10/26/17 - Joshua Vaughan - joshua.vaughan@louisiana.edu
 #
 # Created: 10/30/17 - Kelli Koenig - C00402839@louisiana.edu
 #
@@ -19,6 +40,12 @@
 #   * 11/01/17 - Kelli Koenig (email if not same person as above)
 #     - defined Motors
 #     - changed time of motors running
+#
+#   * 11/04/17 - Kelli Koenig (email if not same person as above)
+#     - added code for servo motors
+#     - added sleep mode for 30 seconds in while loop
+#     - added additional comments to give credit for souce code
+#     -
 #
 # TODO:
 #   * mm/dd/yy - Major bug to fix
@@ -80,14 +107,14 @@ while (True):
     	# Now, we can initialize the DC motor object. The number should match the
     	# motor number = (number on the motor driver board - 1)
     	# For example, M1 on the board is motor 0, M2 on the board is motor 1, etc
-        motors = motor.DCMotors(i2c)
-        BIGDCMOTOR1=2 # DC motor M3
+        #motors = motor.DCMotors(i2c)
+        #BIGDCMOTOR1=2 # DC motor M3
         try:
-            motors.speed(BIGDCMOTOR1, -4095)    # Go ~1/2 speed in one direction
+            #motors.speed(BIGDCMOTOR1, -4095)    # Go ~1/2 speed in one direction
             print("Run BIGDCMOTOR")
-            time.sleep(10)                       # Continue at this speed for 1s
+            time.sleep(1)                       # Continue at this speed for 1s
             # To stop, issue a speed of 0
-            motors.speed(BIGDCMOTOR1, 0)
+            #motors.speed(BIGDCMOTOR1, 0)
             time.sleep_ms(10) # pause briefly to let the motor stop
             print("Stopping BIGDCMOTOR")
             BLUE_LED = pyb.LED(4)
@@ -96,41 +123,95 @@ while (True):
             BLUE_LED.on()           # Turn on at full brightness
             time.sleep_ms(100)           # Sleep 1 second
         except:
-            motors.speed(BIGDCMOTOR1, 0)
+            #motors.speed(BIGDCMOTOR1, 0)
             print("Things are not so smooth anymore.")
         finally:
-            motors.speed(BIGDCMOTOR1, 0)
+            #motors.speed(BIGDCMOTOR1, 0)
+            print("Motor Stopped")
+        # Define the servo object. The numbering scheme differs between the pyboard and
+        # the pyboard LITE.
+        #
+        # For the pyboard:
+        #  Servo 1 is connected to X1, Servo 2 to X2, Servo 3 to X3, and Servo 2 to X4
+        #
+        # For the pyboard LITE:
+        #  Servo 1 is connected to X3, Servo 2 to X4, Servo 3 to X1, and Servo 2 to X2
+
+        # Here, we'll use the first position on the pyboard
+        servo1 = pyb.Servo(1)
+
+        # Now, we can control the angle of the servo
+        # The range of possible angles is -90 < angle < 90, but many servos can't move
+        # over that entire range. A safer range is -60 < angle < 60 or even
+        # -45 < angle < 45
+        servo1.angle(45)
+
+        # Sleep 1s to let it move to that angle
+        time.sleep(1)
+
+        current_angle = servo1.angle()
+        print("The current servo angle is {:+5.2f} degrees.".format(current_angle))
+        # Move to 0 degrees
+        servo1.angle(0)
+        servo1.angle(0, 2000)
+        # Sleep 1s to let it move to that angle
+        time.sleep(1)
+
+        # Move to -45degrees
+        servo1.angle(-45)
+        servo1.angle(-45, 2000)
+
+        # Sleep 1s to let it move to that angle
+        time.sleep(1)
+
+        # We can also get the current angle of the servo. Note that this is based
+        # on the current servo command, not the actual physical angle of the servo
+        # In many cases, the servo should nearly-exactly track the angle command.
+        # However, it is possible that the servo does not track the command.
+        #
+        # To get the angle, call the .angle() method without an argument
+        current_angle = servo1.angle()
+        print("The current servo angle is {:+5.2f} degrees.".format(current_angle))
+
+        # Finally, we can also specify how long it should take the servo to move to the
+        # commanded angle by adding a second argument to the .angle() call. The
+        # argument should be the time to move in milliseconds (1000 = 1s)
+
+        # Let's monitor the angle as it moves
+        current_angle = servo1.angle()
+        print("Arrived at a final angle of {:+5.2f} degrees.".format(current_angle))
         try:
-            motors.speed(BIGDCMOTOR1, 4095)    # Go ~1/2 speed in one direction
+            #motors.speed(BIGDCMOTOR1, 4095)    # Go ~1/2 speed in one direction
             print("Run BIGDCMOTOR")
-            time.sleep(10)                       # Continue at this speed for 1s
+            time.sleep(1)                       # Continue at this speed for 1s
     		# To stop, issue a speed of 0
-            motors.speed(BIGDCMOTOR1, 0)
+            #motors.speed(BIGDCMOTOR1, 0)
             time.sleep_ms(10) # pause briefly to let the motor stop
             print("Stopping BIGDCMOTOR")
+            RED_LED = pyb.LED(1)
             BLUE_LED = pyb.LED(4)
-
-            print("Turning on LED")
-            BLUE_LED.on()           # Turn on at full brightness
-            time.sleep_ms(100)           # Sleep 1 second
+            print("Turning on RED LED, and turning off BLUE LED")
+            BLUE_LED.off()          # Turn off Red LED
+            RED_LED.on()           # Turn on at full brightness
+            time.sleep_ms(100)           # Sleep 100 milliseconds
         except:
-        	motors.speed(BIGDCMOTOR1, 0)
+        	#motors.speed(BIGDCMOTOR1, 0)
         	print("Things are not so smooth anymore.")
-        finally:
-            motors.speed(BIGDCMOTOR1, 0)
+        #finally:
+            #motors.speed(BIGDCMOTOR1, 0)
         #SMALLDCMOTOR2 = 3 # DC motor M4
-        try:
+        #try:
         	# To control the motor, give it a speed between -4095 and 4095
             #motors.speed(SMALLDCMOTOR2, 4095)    # Go ~1/2 speed in one direction
-            print("Run Small DC Motor")
+            #print("Run Small DC Motor")
             #time.sleep(10)                       # Continue at this speed for 1s
             # To stop, issue a speed of 0
             #motors.speed(SMALLDCMOTOR2, 0)
             #time.sleep_ms(10) # pause briefly to let the motor stop
-            print("Stopping Small DC Motor")
-        except:
+            #print("Stopping Small DC Motor")
+        #except:
         	#motors.speed(SMALLDCMOTOR2, 0)
-        	print("Things are not so smooth anymore.")
+        	#print("Things are not so smooth anymore.")
         #finally:
         	#motors.brake(SMALLDCMOTOR2)
     else:
